@@ -10,6 +10,7 @@ interface InternshipField {
   field: string
   startDate: string
   endDate: string
+  duration: number // or string
   mode: "online" | "offline"
   projectVideos: string[]
 }
@@ -33,6 +34,15 @@ interface InternData {
 
 interface InternProfileProps {
   intern: InternData
+}
+
+function calculateDuration(start: string, end: string): number {
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+  const months =
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (endDate.getMonth() - startDate.getMonth())
+  return months + 1 // include the starting month
 }
 
 export function InternProfile({ intern }: InternProfileProps) {
@@ -152,8 +162,9 @@ export function InternProfile({ intern }: InternProfileProps) {
                     <h3 className="text-xl font-semibold text-green-700 dark:text-green-300">{field.field}</h3>
                     <div className="flex gap-2 mt-2 md:mt-0">
                       <Badge variant="outline" className="w-fit">
-                        {field.duration}
+                        {field.duration ? `${field.duration} months` : "Duration not available"}
                       </Badge>
+
                       <Badge
                         variant="outline"
                         className={`w-fit ${field.mode === "online" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-orange-50 text-orange-700 border-orange-200"}`}

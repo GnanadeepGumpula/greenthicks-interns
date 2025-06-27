@@ -7,7 +7,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // or false if you want optimization
+    domains: ["drive.google.com"], // ✅ Add this
   },
 }
 
